@@ -1,0 +1,20 @@
+# Compilation artifact files
+*.class
+target/*
+
+# Package files
+*.jar
+*.war
+
+# Generated VS Code files
+.classpath
+.factorypath
+.project
+.settings/*
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# Misc generated files
+.DS_Store
