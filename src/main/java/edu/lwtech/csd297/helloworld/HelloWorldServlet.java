@@ -51,20 +51,42 @@ public class HelloWorldServlet extends HttpServlet {
         long startTime = System.currentTimeMillis();
         logger.debug("IN - {} {} {}", request.getRemoteAddr(), request.getMethod(), request.getRequestURI());
 
-        // 1.) Choose the template
-        String templateFile = "home.ftl";
+        String cmd = request.getParameter("cmd");
+        if (cmd == null)
+            cmd = "home";
 
-        // 2.) Fill in the template's "blanks"
+        String templateFile = "";
         Map<String, Object> templateFields = new HashMap<>();
-        templateFields.put("name", "CSD 297");
-        ZonedDateTime currentTime = ZonedDateTime.now();
-        templateFields.put("time", currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-        templateFields.put("date", currentTime.format(DateTimeFormatter.ofPattern("LLLL d, yyyy")));
+
+        switch (cmd) {
+            case "home":
+                templateFile = "home.ftl";
+
+                templateFields.put("name", "CSD 297");
+                ZonedDateTime currentTime = ZonedDateTime.now();
+                templateFields.put("time", currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                templateFields.put("date", currentTime.format(DateTimeFormatter.ofPattern("LLLL d, yyyy")));
+                break;
+
+            case "showRandoms":
+                templateFile = "randoms.ftl";
+
+                List<Double> randomDoubles = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
+                    randomDoubles.add(Math.random());
+                }
+                templateFields.put("randomValues", randomDoubles);
+                break;
+
+            default:
+                templateFile = "home.ftl";
+                break;
+        }
         
-        // 3.) Merge the template with the data map
+        // Merge the template with the data map
         String htmlPage = processTemplate(templateFile, templateFields);
 
-        // 4.) Send the resulting HTML to the user
+        // Send the resulting HTML to the user
         try (ServletOutputStream out = response.getOutputStream()) {
             out.println(htmlPage);
         } catch (IOException e) {
