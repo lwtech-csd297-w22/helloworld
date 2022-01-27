@@ -2,6 +2,8 @@ package edu.lwtech.csd297.helloworld;
 
 import java.io.*;
 import java.util.*;
+import java.time.*;
+import java.time.format.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -55,7 +57,10 @@ public class HelloWorldServlet extends HttpServlet {
         // 2.) Fill in the template's "blanks"
         Map<String, Object> templateFields = new HashMap<>();
         templateFields.put("name", "CSD 297");
-
+        ZonedDateTime currentTime = ZonedDateTime.now();
+        templateFields.put("time", currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+        templateFields.put("date", currentTime.format(DateTimeFormatter.ofPattern("LLLL d, yyyy")));
+        
         // 3.) Merge the template with the data map
         String htmlPage = processTemplate(templateFile, templateFields);
 
