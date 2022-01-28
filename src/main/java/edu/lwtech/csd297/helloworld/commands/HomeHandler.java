@@ -22,7 +22,7 @@ public class HomeHandler implements ServletCommand {
         String templateFile = "home.ftl";
         Map<String, Object> templateFields = new HashMap<>();
 
-        templateFields.put("name", "CSD 297");
+        templateFields.put("name", "Chip");
         ZonedDateTime currentTime = ZonedDateTime.now();
         templateFields.put("time", currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         templateFields.put("date", currentTime.format(DateTimeFormatter.ofPattern("LLLL d, yyyy")));
