@@ -11,7 +11,7 @@ import org.apache.logging.log4j.*;
 
 import edu.lwtech.csd297.helloworld.commands.*;
 
-// World's Simplest HelloWorld Servlet -
+// World's Simplest HelloWorld Servlet --
 //      http://server:8080/helloworld/servlet
 //
 // Chip Anderson
